@@ -1,0 +1,20 @@
+﻿<Window x:Class="EntityFramework.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EntityFramework"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <DataGrid x:Name="dtgGrid" Margin="20" Height="200" />
+            <TextBox x:Name="txtId" Margin="10" Width="200"/>
+            <TextBox x:Name="txtName" Margin="10" Width="200"/>
+            <TextBox x:Name="txtMarks" Margin="10" Width="200"/>
+            <Button x:Name="Save" Content="Save" Width="200" Click="Save_Click"/>
+            <Button x:Name="btnDelete" Content="Delete" Width="200" Click="btnDelete_Click"/>
+            <Button x:Name="btnUPdate" Content="Update" Width="200" Margin="10" Click="btnUPdate_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
