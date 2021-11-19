@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,14 +28,14 @@ namespace EntityFramework
         {
             InitializeComponent();
             dbTrainingEntities = new TrainingEntities();
-            // dtgGrid.ItemsSource= dbTrainingEntities.StudentsTables.ToList();
+            dtgGrid.ItemsSource= dbTrainingEntities.StudentsTables.ToList();
             //dtgGrid.ItemsSource = dbTrainingEntities.Students.Where(c => c.Marks > 80).ToList();
             // dtgGrid.ItemsSource = dbTrainingEntities.StudentsTables.Select(c => new { StudentName=c.Name, c.Marks }).ToList();
-            dtgGrid.ItemsSource = dbTrainingEntities.StudentsTables.Select(c => new 
+          /*  dtgGrid.ItemsSource = dbTrainingEntities.StudentsTables.Select(c => new 
             {
                 StudentName = c.Name,
                 StudentMarks = c.Marks
-            }).ToList();
+            }).ToList();*/
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -65,6 +66,40 @@ namespace EntityFramework
             row.Name = txtName.Text;
             dbTrainingEntities.SaveChanges();
             dtgGrid.ItemsSource=dbTrainingEntities.StudentsTables.ToList();
+        }
+
+        private void dtgGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            try
+            {
+                StudentsTable stu = (StudentsTable)dtgGrid.SelectedItem;
+                if (stu != null)
+                {
+                    txtId.Text = stu.Id.ToString();
+                    txtName.Text = stu.Name;
+                    txtMarks.Text = stu.Marks;
+                }
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+           
+            
+        }
+
+        private void dtgGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            
+            StudentsTable stu = e.Row.DataContext as StudentsTable;
+            if (stu != null)
+            {
+                if (Convert.ToInt32(stu.Marks) > 80)
+                {
+                    e.Row.Background = Brushes.Green;
+                }
+            }
+            
         }
     }
 }
